@@ -1,23 +1,37 @@
 import pandas as pd
 import numpy as np
 from kmodes import kmodes
+from sklearn.preprocessing import OneHotEncoder as ohe
+import sys
+import bpython
 
+def kmodesClust(data,targetVariable):
+    if targetVariable != None:
+        tgt =  data[targetVariable]
+        del data[targetVariable]
+    for i in range(0,100):
+        import bpdb;bpdb.set_trace()
+        kmodeObj = kmodes.KModes(n_clusters = i, init = 'Huang', n_init = 100,  max_iter = 500)
+        clusters = kmodeObj.fit_predict(np.array(data))
+        data = mergeclusters(data,clusters)
+    return data
 
+def mergeclusters(data,clusters):
+    clusters = pd.DataFrame(clusters, index = data.index.values)
+    return data.join(clusters,how='inner')
 
-
-def kmodes(data):
+def analysis_kmodes(data,targetVariable):
+    data = kmodesClust(data,targetVariable)
     pass
 
-def analysis_kmodes(data):
-    pass
-
-def kmeans(data):
+def kmeansClust(data,targetVariable):
     #1. Convert categorical data to one-hot encoding
     #2. remove durnken_dr variable from clustering
     #3. Output data with labeled clusters
     pass
 
-def analysis_kmeans(data):
+def analysis_kmeans(data,targetVariable):
+    data = kmeansClust(data,targetVariable)
     #1. Compute Sum of Squared distance
     #2. plot how increase in K changes in Mean sum of sqaures
     #3. Plot how runing multiple interations for best K returns changes in cluster
@@ -25,13 +39,14 @@ def analysis_kmeans(data):
     pass
 
 def read_data():
-    data = pd.read_csv('filtered_fatalities.csv',sep="\t")
+    data = pd.read_csv('filtered_fatalities.csv',sep=",")
+    data = data.reset_index()
     return data
 
 def main():
     data = read_data()
-    kmeans_result = analysis_kmeans(data)
-    kmodes_result = analysis_kmodes(data)
+    kmeans_result = analysis_kmeans(data, sys.argv[1])
+    kmodes_result = analysis_kmodes(data, sys.argv[1])
 
 
 if __name__=='__main__':main()
