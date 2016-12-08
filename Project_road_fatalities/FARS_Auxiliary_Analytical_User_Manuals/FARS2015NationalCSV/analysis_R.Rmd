@@ -27,7 +27,7 @@ population = read.csv('population.csv')
 accidentFatalitiesState = merge(accidentFatalitiesState,select(fatalities,OBJECT_ID,STATE_NAME),by='STATE_NAME')
 accidentFatalitiesState = accidentFatalitiesState[!duplicated(accidentFatalitiesState$STATE_NAME),]
 accidentFatalitiesState  = merge(accidentFatalitiesState,population,by = 'OBJECT_ID')
-accidentFatalitiesState = mutate(accidentFatalitiesState,ratio = log2(count/as.numeric(gsub(",","",Population))))
+accidentFatalitiesState = mutate(accidentFatalitiesState,ratio = log2(count/Population))
 ggplot(accidentFatalitiesState) + aes(y = ratio, x = reorder(STATE_NAME,ratio)) + coord_flip() + geom_bar(stat='identity') + labs(title = 'Ratio of accident fatalities to population',y = 'Log Ratio',x = 'State Name') + theme_minimal() + theme(title = element_text(family = "Trebuchet MS", color="#422164", face="bold", size=15)) + theme(text = element_text(size=8,colour="#266164"))
 ```
 
@@ -97,7 +97,7 @@ chisq.test(ageDrunkFat)
 
 As, P-value is less than significance value, hence we can say that drunker driver fatalities are not independent of Age of the Person. This means, that age does affect drunken driving. Lets check how weather affects accidents 
 
-```{r,warning=FALSE,message = FALSE,error = FALSE}
+```{r,warning=FALSE,message = FALSE,error = FALSE, out.height= 700, out.width=500}
 library(heatmaply)
 wea = sort(table(fatalities$WEATHER))
 print(wea/sum(wea))
@@ -105,7 +105,7 @@ wea = data.frame(table(fatalities$WEATHER,"STATE_NAME" = fatalities$STATE_NAME))
 wea = cast(wea, STATE_NAME ~Var1)
 colnames(wea) = c("STATE_NAME","CLEAR", "RAIN","HAIL","SNOW","FOG","HEAVY WIND","SAND", "OTHER","COUDY","BLOWING SNOW","FREEZING RAIN")
 row.names(wea) = wea$STATE_NAME
-heatmaply((sapply(select(wea,-c(STATE_NAME,CLEAR)),as.numeric)),labRow = row.names(wea),scale = "row")
+heatmaply((sapply(select(wea,-c(STATE_NAME,CLEAR)),as.numeric)),labRow = row.names(wea),scale = "row",margins = c(100,150))
 ```
 Heatmaps have cells aranged as per the fatalities in weather with scaled data. It's obvious that Clear weather would be having Larger amount of accidents, however it is interesting to see that after Clear weather, Cloudy has the highest accidents and then Rainy. We can also see that california and texas are clustered toghether and its well reasoned that both states share approximately similar weather conditions, fatalities and population.  
 ##Explore with Hierarchiacl clustering and K-Modes clustering:  
