@@ -119,8 +119,8 @@ ggplot(data = melt_cor, aes(X1, X2, fill = value))+geom_tile(color = "white")+la
 ```
 
 It seems that Types of crashes such as one car crash, two car crash are correlated to Number of people fatalities, and types of event. Also Positive check of BAC and drunken driver are correlated, hence we can think to reomve some correalted variables, as correlation won't reduce the power of prediction, as correlated variables does not mean they are dependent.  
-We have categorical data, hence it would make sense to first convert variables with more than one categories to dummy variables(One-hot encoding).
+Now, to see how many similar types of Fatalities are involved we can do K-means. As we have categorical data we will evaluate the results based upon K-means(one-hot encoding) and K-modes.  
 
 ```{r}
-
+write.csv(fatalities,'filtered_fatalities.csv')
 ```

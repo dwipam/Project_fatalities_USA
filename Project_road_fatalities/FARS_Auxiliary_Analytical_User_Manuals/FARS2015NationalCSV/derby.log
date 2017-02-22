@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Wed Dec 21 14:50:18 EST 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546): instance a816c00e-0159-22ef-3355-00000f23c170 
+on database directory /Users/dwipam/Project_fatalities_USA/Project_road_fatalities/FARS_Auxiliary_Analytical_User_Manuals/FARS2015NationalCSV/metastore_db with class loader org.apache.spark.sql.hive.client.IsolatedClientLoader$$anon$1@57c0c76a 
+Loaded from file:/usr/local/spark/jars/derby-10.11.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_101-b13
+user.dir=/Users/dwipam/Project_fatalities_USA/Project_road_fatalities/FARS_Auxiliary_Analytical_User_Manuals/FARS2015NationalCSV
+os.name=Mac OS X
+os.arch=x86_64
+os.version=10.12.1
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
